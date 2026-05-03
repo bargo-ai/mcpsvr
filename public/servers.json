@@ -119,6 +119,17 @@
     "homepage": "https://browsermcp.io"
   },
   {
+    "name": "BuyWhere",
+    "key": "BuyWhere",
+    "command": "npx",
+    "description": "BuyWhere MCP server — product catalog tools for Claude Desktop, Cursor, and other MCP-compatible agents. Search and compare products across US, Singapore, and SEA markets.",
+    "args": ["-y", "buywhere-mcp"],
+    "env": {
+      "BUYWHERE_API_KEY": "{{apiKey@string::Get your free API key from https://buywhere.ai}}"
+    },
+    "homepage": "https://github.com/BuyWhere/buywhere-mcp"
+  },
+  {
     "name": "Cribl MCP",
     "key": "CriblMcp",
     "description": "MCP server for managing Cribl configuration and resources, including worker groups, pipelines, routes and sources.",
