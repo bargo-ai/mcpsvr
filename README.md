@@ -1,26 +1,101 @@
-<img src="./public/logo.png" width="68" alt="mcpsvr logo"/>
+<p align="center">
+  <img src="./public/logo.png" width="68" alt="MCPSvr logo" />
+</p>
 
-# Discover Exceptional MCP Servers
+# MCPSvr
 
-[Chinese Version](./README_cn.md)
+> A community-driven directory for discovering, reviewing, and contributing MCP servers.
 
-MCPSvr is an innovative spin-off project from  [5ire](http://github.com/nanbingxyz/5ire) designed to host a community-driven directory of MCP servers. This platform empowers developers to discover exceptional tools while offering a streamlined process for sharing their own MCP server creations.
+<p align="center">
+  <a href="https://github.com/nanbingxyz/mcpsvr/stargazers"><img src="https://img.shields.io/github/stars/nanbingxyz/mcpsvr?style=flat-square" alt="GitHub stars" /></a>
+  <a href="https://github.com/nanbingxyz/mcpsvr/commits/master"><img src="https://img.shields.io/github/last-commit/nanbingxyz/mcpsvr?style=flat-square" alt="Last commit" /></a>
+  <img src="https://img.shields.io/badge/Next.js-15-black?style=flat-square" alt="Next.js 15" />
+  <img src="https://img.shields.io/badge/MCP-community%20directory-6f42c1?style=flat-square" alt="Community directory" />
+</p>
 
-**🚀 The servers here enable MCP clients like 5ire to install and run directly.**
+[中文说明](./README_cn.md)
+
+MCPSvr is a lightweight web directory for Model Context Protocol servers. It helps developers browse available servers, understand how each one is configured, and contribute new entries through pull requests.
+
+The repository centers on a curated `public/servers.json` registry, so MCP clients such as [5ire](http://github.com/nanbingxyz/5ire) can install and run supported servers directly.
 
 https://github.com/user-attachments/assets/3d1ec8db-2041-4f2d-b72c-eb8ae17ab31c
 
-## Contribution Guidelines
+## Table of Contents
+- [Why MCPSvr](#why-mcpsvr)
+- [What You Can Do](#what-you-can-do)
+- [Project Structure](#project-structure)
+- [Run Locally](#run-locally)
+- [How to Add a Server](#how-to-add-a-server)
+- [Server Schema](#server-schema)
+- [Parameter Placeholders](#parameter-placeholders)
+- [Contribution Notes](#contribution-notes)
 
-All registered MCP servers are maintained in the centralized repository located at `/public/servers.json`. Developers can submit new server configurations through GitHub pull requests (PRs).
+## Why MCPSvr
 
-### Configuration Schema
+MCP servers are growing fast, but good discovery is still fragmented. MCPSvr gives the ecosystem a simple shared registry with enough metadata for humans to evaluate tools and for clients to automate setup.
+
+## What You Can Do
+
+- Discover MCP servers from a single browsable directory
+- Review runtime commands, arguments, environment variables, and homepage links
+- Contribute new servers or improve existing metadata via pull requests
+- Reuse the registry in MCP clients that support direct installation
+
+## Project Structure
+
+```text
+.
+├── app/                # Next.js app router pages
+├── components/         # Reusable UI components
+├── lib/                # Utility helpers
+├── public/
+│   ├── logo.png
+│   └── servers.json    # Central MCP server registry
+└── README_cn.md        # Chinese README
+```
+
+## Run Locally
+
+### Prerequisites
+- Node.js 18+
+- npm (or another package manager compatible with `package-lock.json`)
+
+### Install
+```bash
+npm install
+```
+
+### Start the development server
+```bash
+npm run dev
+```
+
+Then open `http://localhost:3000`.
+
+### Build for production
+```bash
+npm run build
+npm run start
+```
+
+## How to Add a Server
+
+All registered MCP servers are maintained in `public/servers.json`. To contribute a new entry:
+
+1. Fork the repository
+2. Add or update a server object in `public/servers.json`
+3. Keep keys consistently ordered
+4. Open a pull request with links to the project homepage or docs
+
+## Server Schema
+
 ```json
 {
   "name": "Server Identifier",
   "key": "Unique alphanumeric identifier",
   "description": "Concise implementation overview",
-  "command": "Execution environment specifier (e.g., uvx, npx, python, node)",
+  "command": "Execution environment specifier (for example uvx, npx, python, node)",
   "args": [
     "Required runtime arguments"
   ],
@@ -31,25 +106,22 @@ All registered MCP servers are maintained in the centralized repository located 
 }
 ```
 
-### Best Practices
+### Field Guidelines
+- `key` must be unique, alphanumeric, and start with a letter
+- `name` is optional and falls back to `key` when omitted
+- `env` and `homepage` are optional but strongly recommended
+- Keep descriptions short and practical so clients can display them cleanly
 
-1. **Field Organization**: Maintain alphabetical ordering for configuration keys
-2. **Identifier Requirements**:
-   - Must be a unique alphanumeric string starting with a letter
-   - Strictly prohibits numeric prefixes
-3. **Metadata Handling**:
-   - Optional `name` field defaults to `key` display value
-   - Environment variables and homepage URLs are supplementary fields
+## Parameter Placeholders
 
-### User-Defined Parameters
+When a server needs user-provided input, use the placeholder format below:
 
-For interactive parameter requirements, adhere to the standardized format:
-```
+```text
 {{paramName@paramType::paramDescription}}
 ```
-This convention enables parameter extraction and presentation in client applications.
 
-**Example Implementation**:
+Example:
+
 ```json
 {
   "name": "File System Access Control",
@@ -59,21 +131,17 @@ This convention enables parameter extraction and presentation in client applicat
   "args": [
     "-y",
     "@modelcontextprotocol/server-filesystem",
-    "{{dirs@list::directories you about to access. Include trailing slash}}"
+    "{{dirs@list::directories you are about to access, include trailing slash}}"
   ],
   "homepage": "https://github.com/modelcontextprotocol/servers"
 }
 ```
-**Parameter Extraction**:
-```json
-{
-  "name": "dirs",
-  "type": "list",
-  "description": "Directories you about to access. Include trailing slash"
-}
-```
 
-**Field Constraints**:
-- `paramName` must be unique within the server configuration
-- Supported data types include string,list and number,make sure to use the right type!
-- Descriptive text remains optional
+Supported placeholder types include `string`, `list`, and `number`.
+
+## Contribution Notes
+
+- Prefer accurate metadata over marketing copy
+- Double-check command arguments before submitting
+- Include a homepage or docs link whenever possible
+- If you add a new field in the future, keep the schema backwards compatible for downstream clients
