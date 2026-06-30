@@ -663,5 +663,20 @@
       "{{vision@boolean::(default: false) Enable vision mode (screenshots instead of accessibility snapshots)}}"
     ],
     "homepage": "https://github.com/microsoft/playwright-mcp"
+  },
+  {
+    "name": "OptionsAhoy",
+    "key": "OptionsAhoy",
+    "description": "Equity-compensation tax/trade optimizer: ISO/AMT exercise scheduling, NSO, RSU sell-vs-hold, QSBS qualification, single-stock concentration, protective-put/collar hedging, and multi-year equity-funding plans. Full federal tax code plus all 50 states and DC.",
+    "command": "npx",
+    "args": [
+      "-y",
+      "mcp-remote",
+      "https://optionsahoy.com/mcp"
+    ],
+    "env": {
+      "npm_config_yes": "true"
+    },
+    "homepage": "https://optionsahoy.com/for-agents"
   }
 ]
