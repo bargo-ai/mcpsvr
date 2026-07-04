@@ -678,5 +678,19 @@
       "npm_config_yes": "true"
     },
     "homepage": "https://optionsahoy.com/for-agents"
+  },
+  {
+    "name": "hushvert",
+    "key": "Hushvert",
+    "description": "File conversion for AI agents over the hushvert hosted API: office docs to PDF, PDF to Word, document interchange (Markdown/HTML/EPUB/LaTeX), and audio/video transcodes.",
+    "command": "npx",
+    "args": [
+      "-y",
+      "@hushvert/mcp"
+    ],
+    "env": {
+      "HUSHVERT_API_KEY": "{{hushvertKey@string::Get a developer key at https://hushvert.com/developers/keys}}"
+    },
+    "homepage": "https://github.com/hushvert/mcp"
   }
 ]
